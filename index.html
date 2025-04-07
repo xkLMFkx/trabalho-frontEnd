@@ -21,10 +21,10 @@
             <button id="removerButton">Remover o Espaço Escolhido</button>
             <br><br>
             <label for="largura">Largura do Espaço:</label>
-            <input type="number" id="largura" min="100" max="300" value="100">
+            <input type="number" id="largura" min="100" max="500" value="100">
             <br><br>
             <label for="altura">Altura do Espaço:</label>
-            <input type="number" id="altura" min="100" max="300" value="100">
+            <input type="number" id="altura" min="100" max="500" value="100">
             <br><br>
             <label for="distancia">Distância entre os Espaços:</label>
             <input type="number" id="distancia" min="0" max="100" value="20">
@@ -56,10 +56,10 @@
             <button type="button" id="removeImageId">Remover Imagem</button>
             <br><br>
             <label for="imagemLargura">Largura da Imagem:</label>
-            <input type="number" id="imagemLargura" min="20" max="100" value="100">
+            <input type="number" id="imagemLargura" min="20" max="500" value="100">
             <br><br>
             <label for="imagemAltura">Altura da Imagem:</label>
-            <input type="number" id="imagemAltura" min="20" max="100" value="100">
+            <input type="number" id="imagemAltura" min="20" max="500" value="100">
             <br><br>
         </div>
 
@@ -78,6 +78,8 @@
     </footer>
         
     <script>
+
+        //funcao para inserir uma imagem
         let imagemElement = null;
         function uploadImageFunc(event) {
             const file = event.target.files[0];
@@ -91,16 +93,15 @@
                     if (todosEspaco[espacoEscolhido]) {
                         imagemElement = document.createElement('img');
                         imagemElement.src = e.target.result;
-                        imagemElement.style.width = '100%';
                         imagemElement.style.height = 'auto';
                         imagemElement.style.borderRadius = '2px';
                         imagemElement.style.paddingBottom = '15px';
 
                         const currentContent = todosEspaco[espacoEscolhido].innerHTML;
                         if (currentContent.trim() !== '' && currentContent.trim() !== 'Exemplo') {
-                            let existingText = todosEspaco[espacoEscolhido].textContent.trim();
+                            let textoExistente = todosEspaco[espacoEscolhido].textContent.trim();
                             todosEspaco[espacoEscolhido].textContent = '';
-                            todosEspaco[espacoEscolhido].textContent = existingText;
+                            todosEspaco[espacoEscolhido].textContent = textoExistente;
                         }
 
                         todosEspaco[espacoEscolhido].prepend(imagemElement);
@@ -109,15 +110,17 @@
             }
         }
 
+        //funcao para alterar o tamanho das imagens
         function alterarTamanhoImagem() {
             if (imagemElement) {
                 let larguraImagem = document.querySelector("#imagemLargura").value;
                 let alturaImagem = document.querySelector("#imagemAltura").value;
-                imagemElement.style.width = larguraImagem + '%';
-                imagemElement.style.height = alturaImagem + '%';
+                imagemElement.style.width = larguraImagem + 'px';
+                imagemElement.style.height = alturaImagem + 'px';
             }
         }
 
+        //funcao para remover imagem
         function removeImageFunc() {
             let todosEspaco = document.querySelectorAll(".espaco_conteudo");
             let espacoEscolhido = parseInt(document.querySelector("#escolhido").value) - 1;
@@ -130,6 +133,7 @@
             }
         }
 
+        //funcao de alteracao de cores 
         function alterarCor() {
             let todosEspaco = document.querySelectorAll(".espaco_conteudo");
             let espacoEscolhido = parseInt(document.querySelector("#escolhido").value) - 1;
@@ -145,6 +149,7 @@
             }
         }
 
+        //funcao que adiciona um espaco
         function adicionarEspaco() {
             const espaco = document.querySelector("#espaco");
             const newCard = document.createElement("div");
@@ -153,6 +158,7 @@
             espaco.appendChild(newCard);
         }
 
+        //funcao que remove o espaco selecionado pelo primeiro input
         function removerEspaco() {
             let todosEspaco = document.querySelectorAll(".espaco_conteudo");
             let espacoEscolhido = parseInt(document.querySelector("#escolhido").value) - 1;
@@ -161,6 +167,7 @@
             }
         }
 
+        //funcao que altera o tamanho/dimensao dos espacos
         function alterarTamanhoEspaco() {
             let todosEspaco = document.querySelectorAll(".espaco_conteudo");
             let espacoEscolhido = parseInt(document.querySelector("#escolhido").value) - 1;
@@ -173,6 +180,7 @@
             }
         }
 
+        //funcao para alterar o texto do espaco e preservar uma possivel imagem
         function alterarTexto() {
             let todosEspaco = document.querySelectorAll(".espaco_conteudo");
             let espacoEscolhido = parseInt(document.querySelector("#escolhido").value) - 1;
@@ -196,6 +204,7 @@
             }
         }
 
+        //funcao para alterar o tamanho das fontes
         function alterarFonte() {
             let todosEspaco = document.querySelectorAll(".espaco_conteudo");
             let espacoEscolhido = parseInt(document.querySelector("#escolhido").value) - 1;
@@ -204,6 +213,10 @@
             }
         }
 
+
+        //funcoes de alteracao de texto
+
+        //texto para negrito
         function aplicarNegrito() {
             let todosEspaco = document.querySelectorAll(".espaco_conteudo");
             let espacoEscolhido = parseInt(document.querySelector("#escolhido").value) - 1;
@@ -212,6 +225,7 @@
             }
         }
 
+        //texto para italico
         function aplicarItalic() {
             let todosEspaco = document.querySelectorAll(".espaco_conteudo");
             let espacoEscolhido = parseInt(document.querySelector("#escolhido").value) - 1;
@@ -220,14 +234,7 @@
             }
         }
 
-        function ajustarDistancia() {
-            const todosEspaco = document.querySelectorAll(".espaco_conteudo");
-            const distancia = document.querySelector("#distancia").value;
-            todosEspaco.forEach((espaco) => {
-                espaco.style.margin = distancia + 'px';
-            });
-        }
-
+        //texto para 'normal'
         function textoNormal() {
             let todosEspaco = document.querySelectorAll(".espaco_conteudo");
             let espacoEscolhido = parseInt(document.querySelector("#escolhido").value) - 1;
@@ -236,7 +243,17 @@
                 todosEspaco[espacoEscolhido].style.fontStyle = 'normal';
             }
         }
+        
+        //funcao para ajustar as distancias dos espacos
+        function ajustarDistancia() {
+            const todosEspaco = document.querySelectorAll(".espaco_conteudo");
+            const distancia = document.querySelector("#distancia").value;
+            todosEspaco.forEach((espaco) => {
+                espaco.style.margin = distancia + 'px';
+            });
+        }
 
+        //listeners
         document.querySelector("#adicionarButton").addEventListener("click", adicionarEspaco);
         document.querySelector("#removerButton").addEventListener("click", removerEspaco);
         document.querySelector("#largura").addEventListener("input", alterarTamanhoEspaco);
