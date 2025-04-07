@@ -88,21 +88,15 @@
                 reader.onload = function(e) {
                     let todosEspaco = document.querySelectorAll(".espaco_conteudo");
                     let espacoEscolhido = parseInt(document.querySelector("#escolhido").value) - 1;
-
+        
                     if (todosEspaco[espacoEscolhido]) {
-                        imagemElement = document.createElement('img');
+                        let imagemElement = document.createElement('img');
                         imagemElement.src = e.target.result;
                         imagemElement.style.height = 'auto';
                         imagemElement.style.borderRadius = '2px';
                         imagemElement.style.paddingBottom = '15px';
-
-                        const currentContent = todosEspaco[espacoEscolhido].innerHTML;
-                        if (currentContent.trim() !== '' && currentContent.trim() !== 'Exemplo') {
-                            let textoExistente = todosEspaco[espacoEscolhido].textContent.trim();
-                            todosEspaco[espacoEscolhido].textContent = '';
-                            todosEspaco[espacoEscolhido].textContent = textoExistente;
-                        }
-
+        
+                        // Não remover o conteúdo anterior. Apenas adiciona a imagem.
                         todosEspaco[espacoEscolhido].prepend(imagemElement);
                     }
                 };
